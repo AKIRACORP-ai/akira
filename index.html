@@ -114,20 +114,43 @@
   .sub { color: var(--muted); font-size: 15px; margin: 0 0 16px; }
   .sub b { color: var(--text); font-weight: 700; }
 
-  .hero-img {
+  .hero {
     position: relative; width: 100%; aspect-ratio: 4/5; max-height: 62vh;
     border-radius: 20px; overflow: hidden;
     border: 1px solid var(--line);
     box-shadow: 0 24px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,46,46,0.10);
     animation: floaty 5s ease-in-out infinite;
   }
-  .hero-img::after {
-    content: ""; position: absolute; inset: -2px;
-    background: radial-gradient(60% 50% at 50% 120%, rgba(255,46,46,0.28), transparent 70%);
-    pointer-events: none;
-  }
-  .hero-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block; }
   @keyframes floaty { 50% { transform: translateY(-7px); } }
+
+  .carousel {
+    display: flex; width: 100%; height: 100%;
+    overflow-x: auto; overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .carousel::-webkit-scrollbar { display: none; }
+  .slide { flex: 0 0 100%; width: 100%; height: 100%; scroll-snap-align: center; }
+  .slide img { width: 100%; height: 100%; object-fit: cover; object-position: center 24%; display: block; }
+
+  .hero .glow {
+    position: absolute; inset: -2px; z-index: 2; pointer-events: none;
+    background: radial-gradient(60% 50% at 50% 120%, rgba(255,46,46,0.30), transparent 70%);
+  }
+
+  .dots {
+    position: absolute; bottom: 12px; left: 0; right: 0; z-index: 3;
+    display: flex; justify-content: center; gap: 7px;
+  }
+  .dots button {
+    position: relative; width: 8px; height: 8px; padding: 0; border: 0; cursor: pointer;
+    border-radius: 50%; background: rgba(255,255,255,0.5);
+    transition: width .22s ease, background .22s ease;
+  }
+  .dots button::after { content: ""; position: absolute; inset: -11px; } /* zone tactile 30px */
+  .dots button[aria-current="true"] { width: 22px; border-radius: 5px; background: #fff; }
+  .dots button:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 
   .tag-corner {
     position: absolute; top: 12px; left: 12px; z-index: 2;
@@ -242,9 +265,19 @@
     <h1>Eleven All Stars 2<span class="vs">France vs Angleterre</span></h1>
     <p class="sub">Le t-shirt <b>collector</b> de l'event Aminematue. <b>Neufs</b>, jamais portés — noir &amp; blanc.</p>
 
-    <figure class="hero-img">
+    <figure class="hero">
       <span class="tag-corner">Collector</span>
-      <img src="tshirt-blanc-porte.jpg" width="640" height="800" alt="T-shirt blanc Eleven All Stars 2 France vs Angleterre porté, avec le trophée imprimé sur la face avant." />
+      <div class="carousel" id="carousel">
+        <div class="slide"><img src="tshirt-blanc-porte.jpg" width="640" height="800" alt="T-shirt blanc Eleven All Stars 2 France vs Angleterre porté, trophée imprimé sur la face avant." /></div>
+        <div class="slide"><img src="promo-michou.jpg" width="640" height="800" loading="lazy" alt="Michou portant le t-shirt blanc Eleven All Stars 2 en studio." /></div>
+        <div class="slide"><img src="promo-pfut.jpg" width="640" height="800" loading="lazy" alt="Pfut portant le t-shirt blanc Eleven All Stars 2." /></div>
+      </div>
+      <span class="glow" aria-hidden="true"></span>
+      <div class="dots" id="dots" role="tablist" aria-label="Photos du t-shirt">
+        <button type="button" aria-label="Photo 1" aria-current="true"></button>
+        <button type="button" aria-label="Photo 2" aria-current="false"></button>
+        <button type="button" aria-label="Photo 3" aria-current="false"></button>
+      </div>
     </figure>
 
     <ul class="facts">
@@ -291,5 +324,46 @@
     </footer>
 
   </main>
+
+  <script>
+    (function () {
+      var c = document.getElementById('carousel');
+      var dots = Array.prototype.slice.call(document.querySelectorAll('#dots button'));
+      var n = dots.length, i = 0, timer = null;
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function mark() {
+        dots.forEach(function (d, k) { d.setAttribute('aria-current', k === i ? 'true' : 'false'); });
+      }
+      function go(idx, smooth) {
+        i = (idx + n) % n;
+        c.scrollTo({ left: c.clientWidth * i, behavior: smooth === false ? 'auto' : 'smooth' });
+        mark();
+      }
+      function start() { if (reduce) return; stop(); timer = setInterval(function () { go(i + 1); }, 3500); }
+      function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+      dots.forEach(function (d, k) {
+        d.addEventListener('click', function () { go(k); start(); });
+      });
+
+      var st;
+      c.addEventListener('scroll', function () {
+        clearTimeout(st);
+        st = setTimeout(function () {
+          var idx = Math.round(c.scrollLeft / c.clientWidth);
+          if (idx !== i) { i = idx; mark(); }
+        }, 120);
+      }, { passive: true });
+
+      c.addEventListener('pointerdown', stop);
+      c.addEventListener('pointerup', start);
+      c.addEventListener('pointercancel', start);
+      window.addEventListener('resize', function () { go(i, false); });
+
+      go(0, false);
+      start();
+    })();
+  </script>
 </body>
 </html>
