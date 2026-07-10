@@ -3,36 +3,36 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>AKIRA — Boutique · Eleven All Stars & pièces rares</title>
-<meta name="description" content="Les t-shirts collector Eleven All Stars 2 (France vs Angleterre) et mes pièces rares. Neufs, envoi soigné sous 24h. Retrouve-moi sur eBay et Leboncoin." />
+<title>AKIRA — T-shirt collector Eleven All Stars 2 · France vs Angleterre</title>
+<meta name="description" content="Le t-shirt collector Eleven All Stars 2 — France vs Angleterre (event Aminematue, Parc des Princes). Neufs, tailles S/M/L, envoi 24h. Dispo sur eBay, Vinted et Leboncoin." />
 
-<!-- Aperçu quand le lien est partagé -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="AKIRA — Boutique · Eleven All Stars & pièces rares" />
-<meta property="og:description" content="T-shirts collector Eleven All Stars 2 + pièces rares. Neufs, envoi 24h. eBay & Leboncoin." />
+<meta property="og:title" content="AKIRA — T-shirt collector Eleven All Stars 2" />
+<meta property="og:description" content="France vs Angleterre · event Parc des Princes. Neufs, S/M/L, envoi 24h. eBay · Vinted · Leboncoin." />
+<meta property="og:image" content="https://akiracorp-ai.github.io/akira/tshirt-roster.jpg" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
 <style>
   :root {
-    --bg: #0d0d0f;
-    --surface: #16161b;
-    --surface-hover: #1d1d24;
-    --text: #f5f5f6;
-    --muted: #a6a6b0;
-    --line: rgba(255, 255, 255, 0.09);
-    --accent: #e4322b;          /* rouge maillot — usage rare */
-    --lbc: #ff6e14;             /* orange Leboncoin, sur son bouton uniquement */
-    --radius: 16px;
+    --bg: #09090c;
+    --card: #141419;
+    --text: #f7f7f8;
+    --muted: #9a9aa6;
+    --line: rgba(255,255,255,0.10);
+    --red: #ff2e2e;
+    --gold: #ffc64b;
+    --ebay-a: #3b74ff; --ebay-b: #1a4be0;
+    --vinted-a: #14b8c0; --vinted-b: #017c85;
+    --lbc-a: #ff8a1f;  --lbc-b: #ff5a1f;
     --font-display: "Anton", Impact, sans-serif;
     --font-body: "Inter", system-ui, sans-serif;
   }
 
   * { box-sizing: border-box; }
-
-  html { -webkit-text-size-adjust: 100%; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 
   body {
     margin: 0;
@@ -40,258 +40,267 @@
     background: var(--bg);
     color: var(--text);
     font-family: var(--font-body);
-    line-height: 1.55;
-    /* halo discret en haut, pas de gradient "trust" */
-    background-image: radial-gradient(120% 60% at 50% -10%, rgba(228, 50, 43, 0.14), transparent 60%);
+    line-height: 1.5;
+    overflow-x: hidden;
     display: flex;
     justify-content: center;
-    padding: 40px 20px 32px;
+    padding: 26px 18px 40px;
   }
 
-  .wrap {
-    width: 100%;
-    max-width: 440px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  /* ---- En-tête marque ---- */
-  .monogram {
-    width: 76px;
-    height: 76px;
+  /* halos colorés animés en fond */
+  body::before, body::after {
+    content: "";
+    position: fixed;
+    z-index: -1;
+    width: 60vmax; height: 60vmax;
     border-radius: 50%;
-    display: grid;
-    place-items: center;
-    background: #000;
-    border: 2px solid var(--accent);
-    box-shadow: 0 0 0 5px rgba(228, 50, 43, 0.12);
+    filter: blur(80px);
+    opacity: 0.28;
+    pointer-events: none;
+  }
+  body::before { background: var(--red);  top: -22vmax; left: -18vmax; animation: drift1 14s ease-in-out infinite; }
+  body::after  { background: #2a5bff;     bottom: -26vmax; right: -20vmax; animation: drift2 16s ease-in-out infinite; }
+  @keyframes drift1 { 50% { transform: translate(12vmax, 10vmax) scale(1.15); } }
+  @keyframes drift2 { 50% { transform: translate(-10vmax, -8vmax) scale(1.1); } }
+
+  .wrap { width: 100%; max-width: 460px; }
+
+  /* ---- top marque ---- */
+  .top {
+    display: flex; align-items: center; justify-content: space-between;
     margin-bottom: 18px;
   }
-  .monogram span {
-    font-family: var(--font-display);
-    font-size: 38px;
-    line-height: 1;
-    letter-spacing: 0.02em;
-    padding-top: 4px;
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand .logo {
+    width: 40px; height: 40px; border-radius: 11px;
+    background: #000; border: 2px solid var(--red);
+    display: grid; place-items: center;
+    box-shadow: 0 0 18px rgba(255,46,46,0.45);
   }
+  .brand .logo span { font-family: var(--font-display); font-size: 22px; padding-top: 3px; }
+  .brand .name { font-family: var(--font-display); font-size: 20px; letter-spacing: 0.06em; }
+  .handle {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 600;
+    padding: 7px 11px; border: 1px solid var(--line); border-radius: 999px;
+    transition: color .15s, border-color .15s, background .15s;
+  }
+  .handle:hover { color: var(--text); border-color: rgba(255,255,255,0.28); background: rgba(255,255,255,0.04); }
+  .handle:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+  .handle svg { width: 15px; height: 15px; }
+
+  /* ---- hero ---- */
+  .drop-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: #12100a; background: linear-gradient(90deg, var(--gold), #ffb020);
+    padding: 6px 12px; border-radius: 999px;
+    box-shadow: 0 6px 22px rgba(255,176,32,0.35);
+  }
+  .drop-badge .live { width: 7px; height: 7px; border-radius: 50%; background:#12100a; animation: blink 1.4s steps(2) infinite; }
+  @keyframes blink { 50% { opacity: 0.25; } }
 
   h1 {
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: clamp(30px, 9vw, 40px);
-    letter-spacing: 0.06em;
-    margin: 0;
-    text-transform: uppercase;
-    text-align: center;
+    font-family: var(--font-display); font-weight: 400;
+    font-size: clamp(34px, 11vw, 50px);
+    line-height: 0.98; letter-spacing: 0.02em; text-transform: uppercase;
+    margin: 14px 0 6px;
   }
+  h1 .vs {
+    display: block; font-size: 0.5em; margin-top: 6px; letter-spacing: 0.06em;
+    background: linear-gradient(90deg, var(--red), #ff7a3d);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .sub { color: var(--muted); font-size: 15px; margin: 0 0 16px; }
+  .sub b { color: var(--text); font-weight: 700; }
 
-  .handle {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 10px;
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    transition: color 0.14s ease;
-  }
-  .handle:hover { color: var(--text); }
-  .handle:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
-  .handle svg { width: 16px; height: 16px; }
-
-  .tagline {
-    margin: 12px 4px 0;
-    text-align: center;
-    color: var(--muted);
-    font-size: 15px;
-    max-width: 30ch;
-  }
-  .tagline b { color: var(--text); font-weight: 600; }
-
-  /* ---- Bandeau infos ---- */
-  .facts {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px 10px;
-    padding: 0;
-    margin: 20px 0 28px;
-  }
-  .facts li {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    color: var(--muted);
-    background: var(--surface);
+  .hero-img {
+    position: relative; width: 100%; aspect-ratio: 4/3;
+    border-radius: 20px; overflow: hidden;
     border: 1px solid var(--line);
-    padding: 6px 11px;
-    border-radius: 999px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,46,46,0.10);
+    animation: floaty 5s ease-in-out infinite;
   }
-  .facts svg { width: 15px; height: 15px; flex: none; }
+  .hero-img::after {
+    content: ""; position: absolute; inset: -2px;
+    background: radial-gradient(60% 50% at 50% 120%, rgba(255,46,46,0.28), transparent 70%);
+    pointer-events: none;
+  }
+  .hero-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 42%; display: block; }
+  @keyframes floaty { 50% { transform: translateY(-7px); } }
 
-  /* ---- Liens boutiques ---- */
-  .links {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  .tag-corner {
+    position: absolute; top: 12px; left: 12px; z-index: 2;
+    font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+    color: #fff; background: var(--red);
+    padding: 6px 11px; border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(255,46,46,0.5);
   }
+
+  /* ---- facts ---- */
+  .facts { list-style:none; display:flex; flex-wrap:wrap; gap: 8px; padding:0; margin: 18px 0 6px; }
+  .facts li {
+    display:inline-flex; align-items:center; gap:6px;
+    font-size: 13px; font-weight: 600; color: var(--text);
+    background: var(--card); border: 1px solid var(--line);
+    padding: 8px 12px; border-radius: 999px;
+  }
+  .facts svg { width: 15px; height: 15px; color: var(--gold); }
+
+  /* ---- CTA ---- */
+  .cta-head {
+    display: flex; align-items: center; gap: 10px; justify-content: center;
+    margin: 26px 0 14px; text-align: center;
+  }
+  .cta-head span {
+    font-family: var(--font-display); font-size: 20px; letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .cta-head .arrow { animation: bob 1.3s ease-in-out infinite; font-size: 22px; }
+  @keyframes bob { 50% { transform: translateY(5px); } }
+
+  .links { display:flex; flex-direction:column; gap: 13px; }
 
   .link {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    width: 100%;
-    min-height: 68px;
-    padding: 14px 16px;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    color: var(--text);
-    text-decoration: none;
-    transition: transform 0.14s ease, background 0.14s ease, border-color 0.14s ease;
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; gap: 14px;
+    min-height: 72px; padding: 14px 18px;
+    border-radius: 16px; text-decoration: none; color: #fff;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+    transition: transform .16s ease, box-shadow .16s ease, filter .16s ease;
   }
-  .link:hover { background: var(--surface-hover); border-color: rgba(255,255,255,0.16); }
-  .link:active { transform: translateY(2px); }
-  .link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .link:hover { transform: translateY(-3px); filter: brightness(1.08); box-shadow: 0 18px 40px rgba(0,0,0,0.5); }
+  .link:active { transform: translateY(0) scale(0.99); }
+  .link:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
 
-  .link .badge {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    display: grid;
-    place-items: center;
-    flex: none;
-    background: #000;
-    border: 1px solid var(--line);
-  }
-  .link .badge svg { width: 22px; height: 22px; }
+  .link.ebay   { background: linear-gradient(135deg, var(--ebay-a), var(--ebay-b)); }
+  .link.vinted { background: linear-gradient(135deg, var(--vinted-a), var(--vinted-b)); }
+  .link.lbc    { background: linear-gradient(135deg, var(--lbc-a), var(--lbc-b)); }
 
-  .link .body { flex: 1; min-width: 0; }
-  .link .body .name {
-    font-weight: 600;
-    font-size: 16px;
-    display: block;
+  /* reflet qui balaie */
+  .link::before {
+    content: ""; position: absolute; top: 0; left: -120%; width: 60%; height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.35), transparent);
+    transform: skewX(-18deg);
+    animation: sweep 4.5s ease-in-out infinite;
   }
-  .link .body .meta {
-    font-size: 13px;
-    color: var(--muted);
-    display: block;
-    margin-top: 1px;
-  }
+  .link.vinted::before { animation-delay: 1.2s; }
+  .link.lbc::before { animation-delay: 2.4s; }
+  @keyframes sweep { 0%, 55% { left: -120%; } 80%, 100% { left: 140%; } }
 
-  .link .chevron { color: var(--muted); flex: none; }
-  .link .chevron svg { width: 20px; height: 20px; display: block; }
+  .link .ic {
+    width: 46px; height: 46px; border-radius: 12px; flex:none;
+    display: grid; place-items: center;
+    background: rgba(255,255,255,0.18); backdrop-filter: blur(2px);
+  }
+  .link .ic svg { width: 24px; height: 24px; }
+  .link .txt { flex: 1; min-width: 0; }
+  .link .txt .n { font-weight: 800; font-size: 17px; display:block; letter-spacing: 0.01em; }
+  .link .txt .m { font-size: 12.5px; opacity: 0.9; display:block; margin-top: 1px; }
+  .link .go {
+    flex: none; width: 30px; height: 30px; border-radius: 50%;
+    background: rgba(255,255,255,0.2); display: grid; place-items: center;
+    transition: transform .16s ease;
+  }
+  .link:hover .go { transform: translateX(3px); }
+  .link .go svg { width: 18px; height: 18px; }
 
-  /* accents propres à chaque plateforme (1 point de couleur chacun) */
-  .link.lbc .badge { border-color: rgba(255, 110, 20, 0.5); color: var(--lbc); }
-  .link.vinted .badge { border-color: rgba(20, 184, 191, 0.5); color: #16b8c0; }
-  .link.ebay .badge { color: var(--text); }
+  /* ---- marquee roster ---- */
+  .marquee {
+    margin: 26px -18px 0; padding: 12px 0;
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    overflow: hidden;
+  }
+  .marquee .track {
+    display: inline-flex; white-space: nowrap; gap: 26px;
+    font-family: var(--font-display); font-size: 15px; letter-spacing: 0.08em;
+    color: var(--muted); text-transform: uppercase;
+    animation: scroll 26s linear infinite;
+  }
+  .marquee .track span { color: var(--text); }
+  .marquee .track b { color: var(--red); font-weight: 400; }
+  @keyframes scroll { to { transform: translateX(-50%); } }
 
-  /* ---- Pied ---- */
-  footer {
-    margin-top: 30px;
-    text-align: center;
-    color: var(--muted);
-    font-size: 12px;
-    letter-spacing: 0.04em;
-  }
-  footer .live {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    text-transform: uppercase;
-  }
-  footer .dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: #22c55e;
-    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
-  }
+  footer { margin-top: 24px; text-align:center; color: var(--muted); font-size: 12.5px; }
+  .online { display:inline-flex; align-items:center; gap:8px; }
+  .online .dot { width:8px; height:8px; border-radius:50%; background:#22c55e; box-shadow:0 0 0 4px rgba(34,197,94,0.18); }
 
   @media (prefers-reduced-motion: reduce) {
-    .link { transition: none; }
-    .link:active { transform: none; }
+    body::before, body::after, .hero-img, .drop-badge .live,
+    .cta-head .arrow, .link::before, .marquee .track { animation: none !important; }
+    .hero-img { transform: none; }
+    .link:hover { transform: none; }
   }
 </style>
 </head>
 <body>
   <main class="wrap">
-    <div class="monogram" aria-hidden="true"><span>A</span></div>
 
-    <h1>Akira</h1>
-    <a class="handle" href="https://www.instagram.com/akira.corps/" target="_blank" rel="noopener" aria-label="Instagram @akira.corps (nouvel onglet)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
-      @akira.corps
-    </a>
-    <p class="tagline">T-shirts <b>collector Eleven All Stars 2</b> — France vs Angleterre — &amp; mes pièces rares.</p>
+    <div class="top">
+      <div class="brand">
+        <span class="logo" aria-hidden="true"><span>A</span></span>
+        <span class="name">AKIRA</span>
+      </div>
+      <a class="handle" href="https://www.instagram.com/akira.corps/" target="_blank" rel="noopener" aria-label="Instagram @akira.corps">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+        @akira.corps
+      </a>
+    </div>
+
+    <span class="drop-badge"><span class="live" aria-hidden="true"></span>Édition événement · Parc des Princes</span>
+
+    <h1>Eleven All Stars 2<span class="vs">France vs Angleterre</span></h1>
+    <p class="sub">Le t-shirt <b>collector</b> de l'event Aminematue. <b>Neufs</b>, jamais portés — noir &amp; blanc.</p>
+
+    <figure class="hero-img">
+      <span class="tag-corner">Collector</span>
+      <img src="tshirt-roster.jpg" width="800" height="600" alt="Dos du t-shirt Eleven All Stars 2 avec le roster complet : Aminematue, SDM, Squeezie, Inoxtag, Kameto, Michou et l'événement du 24 mai 2026 au Parc des Princes." />
+    </figure>
 
     <ul class="facts">
-      <li>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7 9 18l-5-5"/></svg>
-        Neufs
-      </li>
-      <li>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v8H3zM14 10h3.5L21 13v2h-7"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
-        Envoi 24h
-      </li>
-      <li>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-10A6.5 6.5 0 0 1 18.5 11c0 4.4-6.5 10-6.5 10Z"/><circle cx="12" cy="11" r="2.3"/></svg>
-        Colombes 92
-      </li>
-      <li>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 8.3 15.7 3.4a2 2 0 0 0-1.4-.6H5a2 2 0 0 0-2 2v9.3a2 2 0 0 0 .6 1.4l4.9 4.9a2 2 0 0 0 2.8 0l9.3-9.3a2 2 0 0 0 0-2.8Z"/><circle cx="8" cy="8" r="1.2"/></svg>
-        Tailles S · M · L
-      </li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7 9 18l-5-5"/></svg>Neufs</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 8.3 15.7 3.4a2 2 0 0 0-1.4-.6H5a2 2 0 0 0-2 2v9.3a2 2 0 0 0 .6 1.4l4.9 4.9a2 2 0 0 0 2.8 0l9.3-9.3a2 2 0 0 0 0-2.8Z"/><circle cx="8" cy="8" r="1.2"/></svg>Tailles S · M · L</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v8H3zM14 10h3.5L21 13v2h-7"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>Envoi 24h</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-10A6.5 6.5 0 0 1 18.5 11c0 4.4-6.5 10-6.5 10Z"/><circle cx="12" cy="11" r="2.3"/></svg>Colombes 92</li>
     </ul>
 
+    <div class="cta-head">
+      <span>Choppe le tien</span>
+      <span class="arrow" aria-hidden="true">↓</span>
+    </div>
+
     <nav class="links" aria-label="Mes boutiques">
-      <a class="link ebay" href="https://www.ebay.fr/usr/akiracorp" target="_blank" rel="noopener" aria-label="Ma boutique eBay (nouvel onglet)">
-        <span class="badge" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 11a2 2 0 0 1-2 1.8H9a2 2 0 0 1-2-1.8L6 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>
-        </span>
-        <span class="body">
-          <span class="name">Ma boutique eBay</span>
-          <span class="meta">Achat immédiat &amp; Offres · envoi Mondial Relay</span>
-        </span>
-        <span class="chevron" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
-        </span>
+      <a class="link ebay" href="https://www.ebay.fr/usr/akiracorp" target="_blank" rel="noopener" aria-label="Acheter sur ma boutique eBay (nouvel onglet)">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 11a2 2 0 0 1-2 1.8H9a2 2 0 0 1-2-1.8L6 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg></span>
+        <span class="txt"><span class="n">Acheter sur eBay</span><span class="m">Achat immédiat &amp; offres · Mondial Relay</span></span>
+        <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span>
       </a>
 
-      <a class="link lbc" href="https://www.leboncoin.fr/profile/b40e6757-8228-4ce3-8695-b6702176dec4/offers" target="_blank" rel="noopener" aria-label="Mon profil Leboncoin (nouvel onglet)">
-        <span class="badge" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 12.6 5.4a2 2 0 0 0-1.4-.6H6a2 2 0 0 0-2 2v5.2a2 2 0 0 0 .6 1.4l8 8a2 2 0 0 0 2.8 0l3.2-3.2a2 2 0 0 0 0-2.8Z"/><circle cx="8.5" cy="8.5" r="1.3"/></svg>
-        </span>
-        <span class="body">
-          <span class="name">Mon Leboncoin</span>
-          <span class="meta">Toutes mes annonces en cours · remise en main possible</span>
-        </span>
-        <span class="chevron" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
-        </span>
+      <a class="link vinted" href="https://www.vinted.fr/member/148063054" target="_blank" rel="noopener" aria-label="Voir mon profil Vinted (nouvel onglet)">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4 4 7v3h2.5v10h11V10H20V7l-4-3a4 4 0 0 1-8 0Z"/></svg></span>
+        <span class="txt"><span class="n">Voir sur Vinted</span><span class="m">Paiement protégé · mode &amp; seconde main</span></span>
+        <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span>
       </a>
 
-      <a class="link vinted" href="https://www.vinted.fr/member/148063054" target="_blank" rel="noopener" aria-label="Mon profil Vinted (nouvel onglet)">
-        <span class="badge" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4 4 7v3h2.5v10h11V10H20V7l-4-3a4 4 0 0 1-8 0Z"/></svg>
-        </span>
-        <span class="body">
-          <span class="name">Mon Vinted</span>
-          <span class="meta">Mode &amp; seconde main · paiement protégé</span>
-        </span>
-        <span class="chevron" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
-        </span>
+      <a class="link lbc" href="https://www.leboncoin.fr/profile/b40e6757-8228-4ce3-8695-b6702176dec4/offers" target="_blank" rel="noopener" aria-label="Voir mes annonces Leboncoin (nouvel onglet)">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 12.6 5.4a2 2 0 0 0-1.4-.6H6a2 2 0 0 0-2 2v5.2a2 2 0 0 0 .6 1.4l8 8a2 2 0 0 0 2.8 0l3.2-3.2a2 2 0 0 0 0-2.8Z"/><circle cx="8.5" cy="8.5" r="1.3"/></svg></span>
+        <span class="txt"><span class="n">Voir sur Leboncoin</span><span class="m">Remise en main possible · ou colis</span></span>
+        <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span>
       </a>
     </nav>
 
+    <div class="marquee" aria-hidden="true">
+      <div class="track">
+        <span>Aminematue</span><b>·</b><span>SDM</span><b>·</b><span>Squeezie</span><b>·</b><span>Inoxtag</span><b>·</b><span>Kameto</span><b>·</b><span>Michou</span><b>·</b><span>Carlito</span><b>·</b><span>Domingo</span><b>·</b><span>Zack Nani</span><b>·</b><span>Brawks</span><b>·</b><span>Loly</span><b>·</b><span>Vicoss</span><b>·</b>
+        <span>Aminematue</span><b>·</b><span>SDM</span><b>·</b><span>Squeezie</span><b>·</b><span>Inoxtag</span><b>·</b><span>Kameto</span><b>·</b><span>Michou</span><b>·</b><span>Carlito</span><b>·</b><span>Domingo</span><b>·</b><span>Zack Nani</span><b>·</b><span>Brawks</span><b>·</b><span>Loly</span><b>·</b><span>Vicoss</span><b>·</b>
+      </div>
+    </div>
+
     <footer>
-      <span class="live"><span class="dot" aria-hidden="true"></span>Boutiques en ligne · tailles S, M, L</span>
+      <span class="online"><span class="dot" aria-hidden="true"></span>Boutiques en ligne · tailles S, M, L · envoi 24h</span>
     </footer>
+
   </main>
 </body>
 </html>
