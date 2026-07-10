@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AKIRA — Boutique · Eleven All Stars & pièces rares</title>
+<meta name="description" content="Les t-shirts collector Eleven All Stars 2 (France vs Angleterre) et mes pièces rares. Neufs, envoi soigné sous 24h. Retrouve-moi sur eBay et Leboncoin." />
+
+<!-- Aperçu quand le lien est partagé -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="AKIRA — Boutique · Eleven All Stars & pièces rares" />
+<meta property="og:description" content="T-shirts collector Eleven All Stars 2 + pièces rares. Neufs, envoi 24h. eBay & Leboncoin." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --bg: #0d0d0f;
+    --surface: #16161b;
+    --surface-hover: #1d1d24;
+    --text: #f5f5f6;
+    --muted: #a6a6b0;
+    --line: rgba(255, 255, 255, 0.09);
+    --accent: #e4322b;          /* rouge maillot — usage rare */
+    --lbc: #ff6e14;             /* orange Leboncoin, sur son bouton uniquement */
+    --radius: 16px;
+    --font-display: "Anton", Impact, sans-serif;
+    --font-body: "Inter", system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.55;
+    /* halo discret en haut, pas de gradient "trust" */
+    background-image: radial-gradient(120% 60% at 50% -10%, rgba(228, 50, 43, 0.14), transparent 60%);
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px 32px;
+  }
+
+  .wrap {
+    width: 100%;
+    max-width: 440px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ---- En-tête marque ---- */
+  .monogram {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #000;
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 0 5px rgba(228, 50, 43, 0.12);
+    margin-bottom: 18px;
+  }
+  .monogram span {
+    font-family: var(--font-display);
+    font-size: 38px;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    padding-top: 4px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(30px, 9vw, 40px);
+    letter-spacing: 0.06em;
+    margin: 0;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .tagline {
+    margin: 8px 4px 0;
+    text-align: center;
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 30ch;
+  }
+  .tagline b { color: var(--text); font-weight: 600; }
+
+  /* ---- Bandeau infos ---- */
+  .facts {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 10px;
+    padding: 0;
+    margin: 20px 0 28px;
+  }
+  .facts li {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--muted);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 6px 11px;
+    border-radius: 999px;
+  }
+  .facts svg { width: 15px; height: 15px; flex: none; }
+
+  /* ---- Liens boutiques ---- */
+  .links {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    min-height: 68px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    color: var(--text);
+    text-decoration: none;
+    transition: transform 0.14s ease, background 0.14s ease, border-color 0.14s ease;
+  }
+  .link:hover { background: var(--surface-hover); border-color: rgba(255,255,255,0.16); }
+  .link:active { transform: translateY(2px); }
+  .link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .link .badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    flex: none;
+    background: #000;
+    border: 1px solid var(--line);
+  }
+  .link .badge svg { width: 22px; height: 22px; }
+
+  .link .body { flex: 1; min-width: 0; }
+  .link .body .name {
+    font-weight: 600;
+    font-size: 16px;
+    display: block;
+  }
+  .link .body .meta {
+    font-size: 13px;
+    color: var(--muted);
+    display: block;
+    margin-top: 1px;
+  }
+
+  .link .chevron { color: var(--muted); flex: none; }
+  .link .chevron svg { width: 20px; height: 20px; display: block; }
+
+  /* accents propres à chaque plateforme (1 point de couleur chacun) */
+  .link.lbc .badge { border-color: rgba(255, 110, 20, 0.5); color: var(--lbc); }
+  .link.ebay .badge { color: var(--text); }
+
+  /* ---- Pied ---- */
+  footer {
+    margin-top: 30px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+  }
+  footer .live {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    text-transform: uppercase;
+  }
+  footer .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px rgba(228,50,43,0.18);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .link { transition: none; }
+    .link:active { transform: none; }
+  }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="monogram" aria-hidden="true"><span>A</span></div>
+
+    <h1>Akira</h1>
+    <p class="tagline">T-shirts <b>collector Eleven All Stars 2</b> — France vs Angleterre — &amp; mes pièces rares.</p>
+
+    <ul class="facts">
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7 9 18l-5-5"/></svg>
+        Neufs
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v8H3zM14 10h3.5L21 13v2h-7"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+        Envoi 24h
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-10A6.5 6.5 0 0 1 18.5 11c0 4.4-6.5 10-6.5 10Z"/><circle cx="12" cy="11" r="2.3"/></svg>
+        Colombes 92
+      </li>
+    </ul>
+
+    <nav class="links" aria-label="Mes boutiques">
+      <a class="link ebay" href="https://www.ebay.fr/usr/akiracorp" target="_blank" rel="noopener" aria-label="Ma boutique eBay (nouvel onglet)">
+        <span class="badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 11a2 2 0 0 1-2 1.8H9a2 2 0 0 1-2-1.8L6 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>
+        </span>
+        <span class="body">
+          <span class="name">Ma boutique eBay</span>
+          <span class="meta">Achat immédiat &amp; Offres · envoi Mondial Relay</span>
+        </span>
+        <span class="chevron" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a class="link lbc" href="https://www.leboncoin.fr/profile/b40e6757-8228-4ce3-8695-b6702176dec4/offers" target="_blank" rel="noopener" aria-label="Mon profil Leboncoin (nouvel onglet)">
+        <span class="badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 12.6 5.4a2 2 0 0 0-1.4-.6H6a2 2 0 0 0-2 2v5.2a2 2 0 0 0 .6 1.4l8 8a2 2 0 0 0 2.8 0l3.2-3.2a2 2 0 0 0 0-2.8Z"/><circle cx="8.5" cy="8.5" r="1.3"/></svg>
+        </span>
+        <span class="body">
+          <span class="name">Mon Leboncoin</span>
+          <span class="meta">Toutes mes annonces en cours · remise en main possible</span>
+        </span>
+        <span class="chevron" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
+        </span>
+      </a>
+    </nav>
+
+    <footer>
+      <span class="live"><span class="dot" aria-hidden="true"></span>Boutiques en ligne · tailles S à L</span>
+    </footer>
+  </main>
+</body>
+</html>
