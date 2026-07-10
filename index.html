@@ -123,16 +123,14 @@
   }
   @keyframes floaty { 50% { transform: translateY(-7px); } }
 
-  .carousel {
-    display: flex; width: 100%; height: 100%;
-    overflow-x: auto; overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none; -ms-overflow-style: none;
-    -webkit-overflow-scrolling: touch;
+  .carousel { width: 100%; height: 100%; overflow: hidden; touch-action: pan-y; }
+  .track {
+    display: flex; height: 100%; width: 100%;
+    transition: transform .55s cubic-bezier(.4, 0, .2, 1);
+    will-change: transform;
   }
-  .carousel::-webkit-scrollbar { display: none; }
-  .slide { flex: 0 0 100%; width: 100%; height: 100%; scroll-snap-align: center; }
-  .slide img { width: 100%; height: 100%; object-fit: cover; object-position: center 24%; display: block; }
+  .slide { flex: 0 0 100%; width: 100%; height: 100%; }
+  .slide img { width: 100%; height: 100%; object-fit: cover; object-position: center 24%; display: block; pointer-events: none; }
 
   .hero .glow {
     position: absolute; inset: -2px; z-index: 2; pointer-events: none;
@@ -238,10 +236,11 @@
   .online { display:inline-flex; align-items:center; gap:8px; }
   .online .dot { width:8px; height:8px; border-radius:50%; background:#22c55e; box-shadow:0 0 0 4px rgba(34,197,94,0.18); }
 
+  /* on garde le carrousel et le bandeau des noms animés même si Windows coupe les animations ;
+     on ne calme que les effets purement décoratifs */
   @media (prefers-reduced-motion: reduce) {
-    body::before, body::after, .hero-img, .drop-badge .live,
-    .cta-head .arrow, .link::before, .marquee .track { animation: none !important; }
-    .hero-img { transform: none; }
+    body::before, body::after, .hero, .drop-badge .live, .cta-head .arrow { animation: none !important; }
+    .hero { transform: none; }
     .link:hover { transform: none; }
   }
 </style>
@@ -268,9 +267,11 @@
     <figure class="hero">
       <span class="tag-corner">Collector</span>
       <div class="carousel" id="carousel">
-        <div class="slide"><img src="tshirt-blanc-porte.jpg" width="640" height="800" alt="T-shirt blanc Eleven All Stars 2 France vs Angleterre porté, trophée imprimé sur la face avant." /></div>
-        <div class="slide"><img src="promo-michou.jpg" width="640" height="800" loading="lazy" alt="Michou portant le t-shirt blanc Eleven All Stars 2 en studio." /></div>
-        <div class="slide"><img src="promo-pfut.jpg" width="640" height="800" loading="lazy" alt="Pfut portant le t-shirt blanc Eleven All Stars 2." /></div>
+        <div class="track" id="track">
+          <div class="slide"><img src="tshirt-blanc-porte.jpg" width="640" height="800" alt="T-shirt blanc Eleven All Stars 2 France vs Angleterre porté, trophée imprimé sur la face avant." /></div>
+          <div class="slide"><img src="promo-michou.jpg" width="640" height="800" loading="lazy" alt="Michou portant le t-shirt blanc Eleven All Stars 2 en studio." /></div>
+          <div class="slide"><img src="promo-pfut.jpg" width="640" height="800" loading="lazy" alt="Pfut portant le t-shirt blanc Eleven All Stars 2." /></div>
+        </div>
       </div>
       <span class="glow" aria-hidden="true"></span>
       <div class="dots" id="dots" role="tablist" aria-label="Photos du t-shirt">
@@ -327,41 +328,48 @@
 
   <script>
     (function () {
-      var c = document.getElementById('carousel');
+      var carousel = document.getElementById('carousel');
+      var track = document.getElementById('track');
       var dots = Array.prototype.slice.call(document.querySelectorAll('#dots button'));
       var n = dots.length, i = 0, timer = null;
-      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      function mark() {
+      function render(animate) {
+        track.style.transition = animate === false ? 'none' : '';
+        track.style.transform = 'translateX(' + (-i * 100) + '%)';
         dots.forEach(function (d, k) { d.setAttribute('aria-current', k === i ? 'true' : 'false'); });
       }
-      function go(idx, smooth) {
-        i = (idx + n) % n;
-        c.scrollTo({ left: c.clientWidth * i, behavior: smooth === false ? 'auto' : 'smooth' });
-        mark();
-      }
-      function start() { if (reduce) return; stop(); timer = setInterval(function () { go(i + 1); }, 3500); }
+      function go(idx) { i = (idx + n) % n; render(true); }
+      function start() { stop(); timer = setInterval(function () { go(i + 1); }, 3500); }
       function stop() { if (timer) { clearInterval(timer); timer = null; } }
 
       dots.forEach(function (d, k) {
         d.addEventListener('click', function () { go(k); start(); });
       });
 
-      var st;
-      c.addEventListener('scroll', function () {
-        clearTimeout(st);
-        st = setTimeout(function () {
-          var idx = Math.round(c.scrollLeft / c.clientWidth);
-          if (idx !== i) { i = idx; mark(); }
-        }, 120);
-      }, { passive: true });
+      // glisser au doigt / à la souris
+      var x0 = null, dx = 0, dragging = false, w = 0;
+      carousel.addEventListener('pointerdown', function (e) {
+        dragging = true; x0 = e.clientX; dx = 0; w = carousel.clientWidth || 1;
+        track.style.transition = 'none'; stop();
+        try { carousel.setPointerCapture(e.pointerId); } catch (err) {}
+      });
+      carousel.addEventListener('pointermove', function (e) {
+        if (!dragging) return;
+        dx = e.clientX - x0;
+        track.style.transform = 'translateX(' + (-i * 100 + (dx / w) * 100) + '%)';
+      });
+      function end() {
+        if (!dragging) return;
+        dragging = false;
+        if (Math.abs(dx) > w * 0.18) { go(dx < 0 ? i + 1 : i - 1); }
+        else { render(true); }
+        dx = 0; start();
+      }
+      carousel.addEventListener('pointerup', end);
+      carousel.addEventListener('pointercancel', end);
+      window.addEventListener('resize', function () { render(false); });
 
-      c.addEventListener('pointerdown', stop);
-      c.addEventListener('pointerup', start);
-      c.addEventListener('pointercancel', start);
-      window.addEventListener('resize', function () { go(i, false); });
-
-      go(0, false);
+      render(false);
       start();
     })();
   </script>
